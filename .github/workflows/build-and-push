@@ -1,0 +1,17 @@
+
+jobs:
+ build-and-push:
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v6
+     - name: Log in to the container register
+       uses: docker/login-action@v3
+       with:
+	 registry: ghcr.io
+	 username: ${{ github.actor }}
+         password: ${{ secrets.GITHUB_TOKEN }}
+       - name: Build and push docker image
+         run: |
+           docker build . --tag ghrc.io/pd15/skils-publish-docker-images/stackoverflow:main
+           docker push  ghrc.io/pd15/skils-publish-docker-images/stackoverflow:main
+
